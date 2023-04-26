@@ -36,8 +36,14 @@ const MiApp = () => {
 
     const ordenPopularidad = () => {
         peliculas.sort((a,b) => {
-            return a.popularity > b.popularity ? 1 : a.popularity < b.popularity ? -1 : 0;
+            if(a.popularity > b.popularity){
+                return -1
+            } else if(a.popularity < b.popularity){
+                return -1
+            }
         })
+        console.log(peliculas);
+        
     }
 
     return (
@@ -52,8 +58,7 @@ const MiApp = () => {
                     <Dropdown.Toggle split variant="light" id="dropdown-split-basic" />
 
                     <Dropdown.Menu>
-                        <Dropdown.Item onCllick={ordenPopularidad} href="#/action-1">Fecha: Más recientes</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Popularidad: Más vistas</Dropdown.Item>
+                        <Dropdown.Item onClick={ordenPopularidad} href="#/action-1">Popularidad: Más vistas</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
                 </div>
@@ -69,7 +74,9 @@ const MiApp = () => {
                                 {elemento.overview}
                             </Card.Text>
                             <Button variant="info">Ver película</Button>
+                            
                         </Card.Body>
+                        <Card.Footer className="text-muted">😍 Popularidad: {elemento.popularity}</Card.Footer>
                     </Card>
                 )}
             </div>
