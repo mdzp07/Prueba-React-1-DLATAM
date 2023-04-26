@@ -34,9 +34,11 @@ const MiApp = () => {
         }
     }
 
-
-
-
+    const ordenPopularidad = () => {
+        peliculas.sort((a,b) => {
+            return a.popularity > b.popularity ? 1 : a.popularity < b.popularity ? -1 : 0;
+        })
+    }
 
     return (
 
@@ -50,7 +52,7 @@ const MiApp = () => {
                     <Dropdown.Toggle split variant="light" id="dropdown-split-basic" />
 
                     <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Fecha: Más recientes</Dropdown.Item>
+                        <Dropdown.Item onCllick={ordenPopularidad} href="#/action-1">Fecha: Más recientes</Dropdown.Item>
                         <Dropdown.Item href="#/action-2">Popularidad: Más vistas</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
