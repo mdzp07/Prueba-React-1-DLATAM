@@ -2,16 +2,15 @@ import { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import '../css/MiApi.css'
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Dropdown from 'react-bootstrap/Dropdown';
 
 const MiApp = () => {
 
     const [peliculas, setPeliculas] = useState([]);
-    const [busqueda, setBusqueda] = useState("");
+    const [busqueda, setBusqueda] = useState([]);
 
     useEffect(() => {
         apiResults();
+
     }, []);
 
     const apiResults = async () => {
@@ -29,21 +28,15 @@ const MiApp = () => {
         if (e.target.value === "") {
             setPeliculas(busqueda)
         } else {
-            let filtroPeliculas = busqueda.filter(p => p.original_title.toLowerCase().includes(e.target.value));
+            let filtroPeliculas = busqueda.filter(p => p.original_title.toLowerCase().includes(e.target.value.toLowerCase()));
             setPeliculas(filtroPeliculas);
         }
     }
 
     const ordenPopularidad = () => {
-        peliculas.sort((a,b) => {
-            if(a.popularity > b.popularity){
-                return -1
-            } else if(a.popularity < b.popularity){
-                return -1
-            }
-        })
-        console.log(peliculas);
-        
+        const orden = [...peliculas]
+        orden.reverse();
+        setPeliculas(orden);
     }
 
     return (
@@ -52,15 +45,7 @@ const MiApp = () => {
             <div className='Buscador'>
                 <input type="text" placeholder="Buscar pelicula" onChange={buscador} />
                 <div>
-                    <Dropdown as={ButtonGroup}>
-                    <Button variant="light">Ordenar por</Button>
-
-                    <Dropdown.Toggle split variant="light" id="dropdown-split-basic" />
-
-                    <Dropdown.Menu>
-                        <Dropdown.Item onClick={ordenPopularidad} href="#/action-1">Popularidad: Más vistas</Dropdown.Item>
-                    </Dropdown.Menu>
-                    </Dropdown>
+                    <Button variant="secondary" onClick={ordenPopularidad}>Popularidad 🔽🔼 </Button>
                 </div>
 
             </div>
@@ -74,7 +59,7 @@ const MiApp = () => {
                                 {elemento.overview}
                             </Card.Text>
                             <Button variant="info">Ver película</Button>
-                            
+
                         </Card.Body>
                         <Card.Footer className="text-muted">😍 Popularidad: {elemento.popularity}</Card.Footer>
                     </Card>
