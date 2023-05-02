@@ -49,7 +49,7 @@ const MiApp = () => {
                 </div>
 
             </div>
-            <div className='contenedorPrincipal'>
+            <div className='conte*nedorPrincipal'>
                 {peliculas.map((elemento) =>
                     <Card key={elemento.id} className='cardPelicula'>
                         <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500/${elemento.poster_path}`} />
